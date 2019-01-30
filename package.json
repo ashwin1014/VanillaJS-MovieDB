@@ -1,0 +1,15 @@
+{
+  "name": "vjs-moviedb",
+  "version": "1.0.0",
+  "description": "TMDB based site using vanilla js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ashwin Bordoloi",
+  "license": "ISC",
+  "dependencies": {
+    "material-design-icons": "^3.0.1",
+    "materialize-css": "^1.0.0-rc.2"
+  }
+}

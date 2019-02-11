@@ -10,11 +10,12 @@ body{
 }
 
 nav{
-    background-color: var(--base-blue);
+    background-color: var(--base-black);
 }
 
 .brand-logo{
     margin-left: 5px;
+    outline: none;
 }
 
 #HeroImage{
@@ -59,4 +60,25 @@ nav{
 #loadMoreBtn{
     width: 100%;
     margin-bottom: 20px;
+}
+
+.card .card-image img{
+    min-height: 213px;
+}
+
+.card{
+    min-height: 446px;
+}
+
+.mov-details{
+    cursor: pointer;
+}
+
+#movieSection__details{
+    display: none;
+    margin-top: 10px;
+}
+
+h3 {
+    margin-top: 0;
 }

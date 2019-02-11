@@ -14,7 +14,7 @@
 <body>
     <nav>
         <div class="nav-wrapper">
-          <a href="#" class="brand-logo">VJs MovieDB</a>
+          <a href="#" class="brand-logo truncate">VJs MovieDB</a>
           <!-- <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a href="sass.html">Sass</a></li>
             <li><a href="badges.html">Components</a></li>
@@ -23,51 +23,79 @@
         </div>
     </nav>
 
-    <div id="HeroImage">
-        <div class="HeroImage__image">
-          <div class="HeroImage__description">
-              <h4></h4>
-              <p></p>              
-          </div>  
-        </div>    
-    </div>
+    <section id="movieSection__all">
+          <div id="HeroImage">
+            <div class="HeroImage__image">
+              <div class="HeroImage__description">
+                  <h4></h4>
+                  <p></p>              
+              </div>  
+            </div>    
+        </div>
 
-    <div id="searchBar">
-        <div class="row">
-            <form class="col s12">
-              <div class="row">
-                <div class="input-field col s12">
-                  <i class="material-icons prefix">search</i>
-                  <input id="movieSearch" type="text" autocomplete="off">
-                  <label for="movieSearch">Search movie...</label>
+        <div id="searchBar" class="container">
+            <div class="row">
+                <form class="col s12">
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <i class="material-icons prefix">search</i>
+                      <input id="movieSearch" type="text" autocomplete="off">
+                      <label for="movieSearch">Search movie...</label>
+                    </div>
+                  </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="MovieDisplayGrid">
+            <h3 class="container"></h3>
+            <div class="row container MovieDisplayGrid__container">
+              <!-- <div class="col s12 m4 l4 xl4">
+                <div class="card">
+                  <div class="card-image">
+                    <img src="images/sample-1.jpg">
+                    <span class="card-title">Card Title</span>
+                  </div>
+                  <div class="card-content">
+                    <p>I am a very simple card. I am good at containing small bits of information.
+                    I am convenient because I require little markup to use effectively.</p>
+                  </div>
+                  <div class="card-action">
+                    <a href="#">Details</a>
+                  </div>
                 </div>
-              </div>
-            </form>
+              </div> -->
+            </div>
+          <div class="container">
+            <a id="loadMoreBtn" class="waves-effect waves-light btn"><i class="material-icons right">cloud</i>Load more</a>
           </div>
-    </div>
+        </div>
+    </section>
 
-    <div id="MovieDisplayGrid">
-      <div class="row container MovieDisplayGrid__container">
-         <!-- <div class="col s12 m4 l4 xl4">
-          <div class="card">
-            <div class="card-image">
-              <img src="images/sample-1.jpg">
-              <span class="card-title">Card Title</span>
+    <section id="movieSection__details">
+      <div class="container">
+          <!-- <div class="row">
+            <div class="col m4 s12">
+                <img class="materialboxed responsive-img" src="http://www.wallpapereast.com/static/images/516663_gkVPKFU.jpg">
             </div>
-            <div class="card-content">
-              <p>I am a very simple card. I am good at containing small bits of information.
-              I am convenient because I require little markup to use effectively.</p>
-            </div>
-            <div class="card-action">
-              <a href="#">Details</a>
+            <div class="col m8 s12">
+                <h3>Gone girl</h3>
+                <p class="">
+                    One common flaw we've seen in many frameworks is a lack of support for truly responsive text. While elements on the page resize fluidly, text still resizes on a fixed basis. To ameliorate this problem, for text heavy pages, we've created a class that fluidly scales text size and line-height to optimize readability for the user. Line length stays between 45-80 characters and line height scales to be larger on smaller screens.
+                    
+                    To see Flow Text in action, slowly resize your browser and watch the size of this text body change! Use the button above to toggle off/on flow-text to see the difference!
+                </p>
             </div>
           </div>
-         </div> -->
+          <div class="row">
+              <div class="video-container">
+                  <iframe  src="//https://www.youtube.com/embed/ksujQ9HriPg" frameborder="0" allowfullscreen></iframe>
+              </div>
+          </div> -->
       </div>
-     <div class="container">
-      <a id="loadMoreBtn" class="waves-effect waves-light btn"><i class="material-icons right">cloud</i>Load more</a>
-     </div>
-    </div>
+    </section>
+
+    
 
     <!-- scripts -->
     <script src="node_modules\materialize-css\dist\js\materialize.min.js"></script>

@@ -64,10 +64,24 @@ nav{
 
 .card .card-image img{
     min-height: 213px;
+    max-height: 305px;
 }
+
+@media only screen and (max-width: 600px) {
+    .card .card-image img{
+        min-height: 213px;
+        max-height: 100%;
+    }
+  }
 
 .card{
     min-height: 446px;
+}
+
+.card-content p {
+    max-height: 85px;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .mov-details{
@@ -81,4 +95,21 @@ nav{
 
 h3 {
     margin-top: 0;
+}
+
+blockquote{
+    font-style: italic;
+}
+
+#movieSection__details .card-panel .responsive-img{
+    max-height: 225px;
+}
+
+nav .brand-logo i{
+    float: right !important;
+    margin-left: 10px;
+}
+
+nav .brand-logo {
+    display: inline-flex;
 }

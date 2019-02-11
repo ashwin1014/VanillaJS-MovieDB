@@ -1,6 +1,8 @@
 import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './config.js';
 
-// (()=>{
+ (()=>{
+     "use strict";
+    
      window.onload = ()=> {
         // document.querySelector('#movieSection__details').remove();
         const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
@@ -8,7 +10,6 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
      };
 
      
-    "use strict";
     const fetchPopularMovieDetails = async (url, isSearched) => {
         let response = await fetch(url);
         let movieData = await response.json();
@@ -19,13 +20,13 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
             // isSearched ?  document.querySelector('.MovieDisplayGrid__container').innerHTML = '' : null
              document.querySelector('.MovieDisplayGrid__container').innerHTML += `
              <div class="col s12 m3 l3 xl3">
-             <div class="card">
+             <div class="card hoverable">
                <div class="card-image">
                  <img src="${IMAGE_BASE_URL}${POSTER_SIZE}${element.poster_path}">
                 <!-- <span class="card-title">${element.original_title}</span> -->
                </div>
                <div class="card-content">
-                 <p class="truncate">${element.overview}</p>
+                 <p class="">${element.overview}</p>
                </div>
                <div class="card-action">
                  <a class="mov-details" data-reference=${element.id}>Details</a>
@@ -56,12 +57,34 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
               let results = await Promise.all([
                 fetch(`${API_URL}movie/${movieId}?api_key=${API_KEY}`),
                 fetch(`${API_URL}movie/${movieId}/videos?api_key=${API_KEY}`),
+                fetch(`${API_URL}movie/${movieId}/casts?api_key=${API_KEY}`)
               ].map(url =>
                     url.then(
                         (response) => response.json()
                      ))              
               );
-              console.log(results)
+              // console.log(results)
+              let genres = results[0].genres.map((ele)=>{
+                return ele.name
+              });
+
+              let actors = results[2].cast.map(ele => {
+                return {
+                  name: ele.name,
+                  picture: ele.profile_path 
+                };
+              });
+
+              // console.log(actors)
+
+               let actorsHtml = actors.slice(0,6).map((ele) => {
+                 let html = `<div class="col s6 m3 center">
+                 <div class="card-panel"><img class="responsive-img" src="${IMAGE_BASE_URL}/w300${ele.picture}">
+                 <h6>${ele.name}</h6></div></div>`;
+                 return html
+               });
+
+              // console.table(actorsHtml)
 
               document.querySelector('#movieSection__details .container').innerHTML = `
                   <div class="row">
@@ -69,11 +92,25 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
                         <img class="materialboxed responsive-img" src="${IMAGE_BASE_URL}${BACKDROP_SIZE}${results[0].poster_path}">
                     </div>
                     <div class="col m8 s12">
-                        <h3>${results[0].original_title}</h3>
-                        <p class="">
-                        ${results[0].overview}
+                        <div style="display: inline-block">
+                          <h3>${results[0].original_title}</h3>
+                          <blockquote>
+                          <i class="material-icons" style="transform: scaleX(-1)">format_quote</i>
+                           ${results[0].tagline}
+                           <i class="material-icons">format_quote</i>
+                          </blockquote>
+                          <h6><b>Runtime:</b> ${results[0].runtime} minutes</h6>
+                          <h6><b>Genres:</b> ${genres}</h6>
+                          <h6><b>Release date:</b> ${results[0].release_date}</h6>
+                          <h6><b>Home page:</b><a href="${results[0].homepage}">&nbsp;Visit homepage</a></h6>
+                        </div>
+                        <p>
+                          ${results[0].overview}
                         </p>
                     </div>
+                </div>
+                <div class="row">
+                    ${actorsHtml.join('')}
                 </div>
                 <div class="row">
                     <div class="video-container">
@@ -81,8 +118,8 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
                     </div>
                 </div>
               `
-                var elems = document.querySelectorAll('.materialboxed');
-                var instances = M.Materialbox.init(elems);
+                let elems = document.querySelectorAll('.materialboxed');
+                let instances = M.Materialbox.init(elems);
             });          
 
         });
@@ -111,5 +148,4 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
     });
 
 
-
-// })();
+ })();

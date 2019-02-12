@@ -5,7 +5,7 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
     
      window.onload = ()=> {
         // document.querySelector('#movieSection__details').remove();
-        const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
+        const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1&include_adult=true`;
         fetchPopularMovieDetails(endpoint, false);
      };
 
@@ -19,11 +19,12 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
 
         movieData.results.map(element=>{
              // console.log(element); 
+             let imagePath = element.poster_path ? `${IMAGE_BASE_URL}${POSTER_SIZE}${element.poster_path}` : 'images/no_image.jpg';
              document.querySelector('.MovieDisplayGrid__container').innerHTML += `
-             <div class="col s12 m3 l3 xl3">
+             <div class="col s6 m3 l3 xl3">
              <div class="card hoverable">
                <div class="card-image">
-                 <img src="${IMAGE_BASE_URL}${POSTER_SIZE}${element.poster_path}">
+                 <img src="${imagePath}">
                 <!-- <span class="card-title">${element.original_title}</span> -->
                </div>
                <div class="card-content">
@@ -33,8 +34,7 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
                  <a class="mov-details" data-reference=${element.id}>Details</a>
                </div>
              </div>
-            </div>                
-             `;         
+            </div>`;         
           });
 
         let randomMovie = movieData.results[Math.floor(Math.random() * 20)];
@@ -52,15 +52,15 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
               event.preventDefault();
               const movieId = event.currentTarget.getAttribute('data-reference'); 
               let results = await Promise.all([
-                fetch(`${API_URL}movie/${movieId}?api_key=${API_KEY}`),
-                fetch(`${API_URL}movie/${movieId}/videos?api_key=${API_KEY}`),
-                fetch(`${API_URL}movie/${movieId}/casts?api_key=${API_KEY}`)
+                fetch(`${API_URL}movie/${movieId}?api_key=${API_KEY}&include_adult=true`),
+                fetch(`${API_URL}movie/${movieId}/videos?api_key=${API_KEY}&include_adult=true`),
+                fetch(`${API_URL}movie/${movieId}/casts?api_key=${API_KEY}&include_adult=true`)
               ].map(url =>
                     url.then(
                         (response) => response.json()
                      ))              
               );
-              // console.log(results)
+              console.log(results)
               let genres = results[0].genres.map((ele)=>{
                 return ele.name
               });
@@ -85,7 +85,8 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
                 document.querySelector('i.material-icons.left').style.visibility="visible";
                 document.querySelector('#movieSection__details').style.display="block";
                 document.documentElement.scrollTop = 0;
-
+                
+              let videoUrl = results[1].results[0] ? `<iframe  src="https://www.youtube.com/embed/${results[1].results[0].key}" frameborder="0" allowfullscreen></iframe>`:'<p class="flow-text">No video available</p>'
               document.querySelector('#movieSection__details .container').innerHTML = `
                   <div class="row">
                     <div class="col m4 s12">
@@ -110,11 +111,12 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
                     </div>
                 </div>
                 <div class="row">
+                    <h4>Top Cast</h4>
                     ${actorsHtml.join('')}
                 </div>
                 <div class="row">
                     <div class="video-container">
-                        <iframe  src="https://www.youtube.com/embed/${results[1].results[0].key}" frameborder="0" allowfullscreen></iframe>
+                        ${videoUrl}
                     </div>
                 </div>
               `
@@ -134,7 +136,7 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
             let endpoint;
             console.log(searchedItem);
             if(searchedItem === ''){
-              endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
+              endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1&include_adult=true`;
             } else {
               endpoint = `${API_URL}search/movie?api_key=${API_KEY}&language=en-US&query=${searchedItem}&page=1&include_adult=true`;
             }
@@ -149,7 +151,7 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
       let endpoint;
 
       if(searchedItem === ''){
-        endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${++count}`;
+        endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${++count}&include_adult=true`;
       } else{
         endpoint = `${API_URL}search/movie?api_key=${API_KEY}&language=en-US&query=${searchedItem}&page=${++count}&include_adult=true`;
       }

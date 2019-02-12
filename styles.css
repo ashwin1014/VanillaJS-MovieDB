@@ -51,10 +51,11 @@ nav{
 
 .HeroImage__description{
     color: var(--white);
-    max-width: 60%;
+    /* max-width: 60%; */
     padding: 20px;
     position: relative;
-    top: 45%;
+    top: 63%;
+    max-height: 50%;
 }
 
 #loadMoreBtn{
@@ -120,3 +121,31 @@ i.material-icons.left{
     visibility: hidden;
     cursor: pointer;
 }
+
+
+
+.dots-after-text {
+    overflow: hidden;
+    position: relative;
+    max-height: 6.2em;
+    text-align: justify;
+    margin-right: -1em;
+    padding-right: 1em !important;
+}
+
+    /* .dots-after-text:before {
+        content: '...';
+        position: absolute;
+        right: -1px;
+        bottom: 2px;
+    }
+
+    .dots-after-text:after {
+        content: '';
+        position: absolute;
+        right: 0;
+        width: 1em;
+        height: 50px;
+        margin-top: 0.2em;
+        background: #FFF;
+    } */

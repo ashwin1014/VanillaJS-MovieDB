@@ -15,9 +15,10 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
         let movieData = await response.json();
         // console.log(movieData.results[0]);
         isSearched ? document.querySelector('#MovieDisplayGrid h3').innerText='Search results': document.querySelector('#MovieDisplayGrid h3').innerText='Popular movies'
+        if(isSearched) document.querySelector('.MovieDisplayGrid__container').innerHTML = '';
+
         movieData.results.map(element=>{
              // console.log(element); 
-            // isSearched ?  document.querySelector('.MovieDisplayGrid__container').innerHTML = '' : null
              document.querySelector('.MovieDisplayGrid__container').innerHTML += `
              <div class="col s12 m3 l3 xl3">
              <div class="card hoverable">
@@ -129,15 +130,30 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
     document.getElementById('movieSearch').addEventListener('keydown', ()=>{
         clearTimeout(timeout);
         timeout = setTimeout(() => {
-            console.log(document.getElementById('movieSearch').value);
-        //    const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=3`;
-        //    fetchPopularMovieDetails(endpoint, true);
+            let searchedItem = document.getElementById('movieSearch').value;
+            let endpoint;
+            console.log(searchedItem);
+            if(searchedItem === ''){
+              endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
+            } else {
+              endpoint = `${API_URL}search/movie?api_key=${API_KEY}&language=en-US&query=${searchedItem}&page=1&include_adult=true`;
+            }
+           fetchPopularMovieDetails(endpoint, true);
         }, 600);
     });
 
     let count = 1;
     document.getElementById('loadMoreBtn').addEventListener('click', ()=> {
-        const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${++count}`;
+
+      let searchedItem = document.getElementById('movieSearch').value;
+      let endpoint;
+
+      if(searchedItem === ''){
+        endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${++count}`;
+      } else{
+        endpoint = `${API_URL}search/movie?api_key=${API_KEY}&language=en-US&query=${searchedItem}&page=${++count}&include_adult=true`;
+      }
+
         fetchPopularMovieDetails(endpoint, false);
     });
 

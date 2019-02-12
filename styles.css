@@ -113,3 +113,10 @@ nav .brand-logo i{
 nav .brand-logo {
     display: inline-flex;
 }
+
+i.material-icons.left{
+    padding-left: 20px;
+    /* display: none; */
+    visibility: hidden;
+    cursor: pointer;
+}

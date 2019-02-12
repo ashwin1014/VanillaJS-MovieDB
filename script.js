@@ -50,12 +50,6 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
            ele.addEventListener('click', async(event)=>{
               event.preventDefault();
               const movieId = event.currentTarget.getAttribute('data-reference'); 
-              
-              document.querySelector('#movieSection__all').style.display="none";
-              document.querySelector('i.material-icons.left').style.visibility="visible";
-              document.querySelector('#movieSection__details').style.display="block";
-              document.documentElement.scrollTop = 0;
-
               let results = await Promise.all([
                 fetch(`${API_URL}movie/${movieId}?api_key=${API_KEY}`),
                 fetch(`${API_URL}movie/${movieId}/videos?api_key=${API_KEY}`),
@@ -86,7 +80,10 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
                  return html
                });
 
-              // console.table(actorsHtml)
+                document.querySelector('#movieSection__all').style.display="none";
+                document.querySelector('i.material-icons.left').style.visibility="visible";
+                document.querySelector('#movieSection__details').style.display="block";
+                document.documentElement.scrollTop = 0;
 
               document.querySelector('#movieSection__details .container').innerHTML = `
                   <div class="row">

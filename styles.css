@@ -113,6 +113,7 @@ nav .brand-logo i{
 
 nav .brand-logo {
     display: inline-flex;
+    cursor: pointer;
 }
 
 i.material-icons.left{
@@ -120,6 +121,10 @@ i.material-icons.left{
     /* display: none; */
     visibility: hidden;
     cursor: pointer;
+}
+
+#movieSection__details .card-panel{
+    max-height: 370px;
 }
 
 

@@ -60,7 +60,7 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
                         (response) => response.json()
                      ))              
               );
-              console.log(results)
+               console.log(results)
               let genres = results[0].genres.map((ele)=>{
                 return ele.name
               });
@@ -68,16 +68,23 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
               let actors = results[2].cast.map(ele => {
                 return {
                   name: ele.name,
-                  picture: ele.profile_path 
+                  picture: ele.profile_path,
+                  character: ele.character,
+                  actorId: ele.id
                 };
               });
 
-              // console.log(actors)
+               // console.log(actors)
+              
 
-               let actorsHtml = actors.slice(0,6).map((ele) => {
-                 let html = `<div class="col s6 m3 center">
-                 <div class="card-panel"><img class="responsive-img" src="${IMAGE_BASE_URL}/w300${ele.picture}">
-                 <h6>${ele.name}</h6></div></div>`;
+               let actorsHtml = actors.slice(0,8).map((ele) => {
+                 let imageUrl = ele.picture ? `${IMAGE_BASE_URL}/w300${ele.picture}`: 'images/no_image.jpg';
+                 let html = `<div class="col s6 m3 center actor-card" data-id="${ele.actorId}">
+                 <div class="card-panel"><img class="responsive-img" src="${imageUrl}">
+                 <h6>${ele.name}</h6>
+                        as
+                 <h6 class="truncate">"${ele.character}"</h6>
+                 </div></div>`;
                  return html
                });
 
@@ -122,6 +129,22 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
               `
                 let elems = document.querySelectorAll('.materialboxed');
                 let instances = M.Materialbox.init(elems);
+
+                let m_elems = document.querySelectorAll('.modal');
+                let m_instances = M.Modal.init(m_elems);
+
+
+                document.querySelectorAll('.actor-card').forEach((ele)=>{
+                  console.log(ele)
+                  ele.addEventListener('click', async(event)=>{
+                    // console.log(event)
+                    let id = ele.getAttribute("data-id");
+                    console.log(id)
+                    let url =  `${API_URL}person/${id}?api_key=${API_KEY}&language=en-US`;
+                    let response = await fetch(url);
+                    let actorData = await response.json();
+                  });
+                });
             });          
 
         });

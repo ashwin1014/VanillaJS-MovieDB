@@ -127,22 +127,26 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
                     </div>
                 </div>
               `
-                let elems = document.querySelectorAll('.materialboxed');
-                let instances = M.Materialbox.init(elems);
+                const elems = document.querySelectorAll('.materialboxed');
+                const instances = M.Materialbox.init(elems);
 
-                let m_elems = document.querySelectorAll('.modal');
-                let m_instances = M.Modal.init(m_elems);
-
+                const m_elems = document.querySelector('.modal');
+                const m_instances = M.Modal.init(m_elems);
 
                 document.querySelectorAll('.actor-card').forEach((ele)=>{
-                  console.log(ele)
+                  // console.log(ele)
                   ele.addEventListener('click', async(event)=>{
                     // console.log(event)
                     let id = ele.getAttribute("data-id");
-                    console.log(id)
+                    // console.log(id)
                     let url =  `${API_URL}person/${id}?api_key=${API_KEY}&language=en-US`;
                     let response = await fetch(url);
                     let actorData = await response.json();
+                    // console.log(actorData)
+                    m_instances.open();
+                    document.querySelector('.modal-content h4').innerText = actorData.name;
+                    document.querySelector('.modal-content p').innerText = actorData.biography;
+                    document.querySelector('.modal-content h6').innerText = `Birthday: ${actorData.birthday} \n Birth place: ${actorData.place_of_birth}`;
                   });
                 });
             });

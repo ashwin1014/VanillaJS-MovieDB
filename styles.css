@@ -23,17 +23,11 @@ nav{
 }
 
 .HeroImage__image{
-    /* background: 
-    linear-gradient(to bottom, rgba(0,0,0,0)
-                    39%, rgba(0,0,0,0)
-                    41%, rgba(0,0,0,0.65)
-                    100%),
-    url('http://image.tmdb.org/t/p/w1280/5A2bMlLfJrAfX9bqAibOL2gCruF.jpg'); */
-    background-position: center center !important; 
+    background-position: center center !important;
     background-repeat: no-repeat !important;
     background-size: 100%, cover !important;
     position: relative;
-    animation: animateHeroimage 1s; 
+    animation: animateHeroimage 1s;
 }
 
 @keyframes animateHeroimage {
@@ -77,6 +71,7 @@ nav{
 
 .card{
     min-height: 446px;
+    max-height: 516px;
 }
 
 .card-content p {
@@ -154,3 +149,10 @@ i.material-icons.left{
         margin-top: 0.2em;
         background: #FFF;
     } */
+
+    @media only screen and (max-width: 600px) {
+    .card .card-image img{
+        min-height: 213px;
+        max-height: 330px;
+    }
+  }

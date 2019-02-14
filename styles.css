@@ -121,6 +121,10 @@ i.material-icons.left{
     max-height: 370px;
 }
 
+.MovieDisplayGrid__container .card-content{
+    min-height: 138px;
+}
+
 .actor-card{
     cursor: pointer;
 }
@@ -154,6 +158,6 @@ i.material-icons.left{
     @media only screen and (max-width: 600px) {
     .card .card-image img{
         min-height: 213px;
-        max-height: 281px;
+        max-height: 278px;
     }
   }

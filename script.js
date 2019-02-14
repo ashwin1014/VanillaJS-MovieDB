@@ -77,8 +77,8 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
 
                // console.log(actors)
 
-
                let actorsHtml = actors.slice(0,8).map((ele) => {
+                // console.log(ele)
                  let imageUrl = ele.picture ? `${IMAGE_BASE_URL}/w300${ele.picture}`: 'images/no_image.jpg';
                  let html = `<div class="col s6 m3 center actor-card" data-id="${ele.actorId}">
                  <div class="card-panel"><img class="responsive-img hoverable" src="${imageUrl}" alt="${ele.name}-poster">
@@ -129,14 +129,14 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
                 </div>
               `;
                 const elems = document.querySelectorAll('.materialboxed');
-                const instances = M.Materialbox.init(elems);
+                M.Materialbox.init(elems);
 
                 const m_elems = document.querySelector('.modal');
                 const m_instances = M.Modal.init(m_elems);
 
                 document.querySelectorAll('.actor-card').forEach((ele)=>{
                  //  console.log(ele)
-                  ele.addEventListener('click', async(event)=>{
+                  ele.addEventListener('click', async()=>{
                     // console.log(event)
                     let id = ele.getAttribute("data-id");
                     // console.log(id)
@@ -146,8 +146,8 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
                     // console.log(actorData)
                     m_instances.open();
                     document.querySelector('.modal-content h4').innerText = actorData.name;
-                    document.querySelector('.modal-content p').innerText = actorData.biography;
-                    document.querySelector('.modal-content h6').innerText = `Birthday: ${actorData.birthday} \n Birth place: ${actorData.place_of_birth}`;
+                    document.querySelector('.modal-content p').innerText = actorData.biography?actorData.biography:'No data available';
+                    document.querySelector('.modal-content h6').innerText = `Birthday: ${actorData.birthday ? actorData.birthday:'No data available'} \n Birth place: ${actorData.place_of_birth ? actorData.place_of_birth : 'No data available'}`;
                   });
                 });
 
@@ -188,7 +188,6 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
       } else{
         endpoint = `${API_URL}search/movie?api_key=${API_KEY}&language=en-US&query=${searchedItem}&page=${++count}&include_adult=true`;
       }
-
         fetchPopularMovieDetails(endpoint, false);
     });
 

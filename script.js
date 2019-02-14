@@ -9,6 +9,7 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
         fetchPopularMovieDetails(endpoint, false);
      };
 
+     window.onbeforeunload = function() { return null; };
 
     const fetchPopularMovieDetails = async (url, isSearched) => {
         let response = await fetch(url);
@@ -17,14 +18,14 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
         isSearched ? document.querySelector('#MovieDisplayGrid h3').innerText='Search results': document.querySelector('#MovieDisplayGrid h3').innerText='Popular movies'
         if(isSearched) document.querySelector('.MovieDisplayGrid__container').innerHTML = '';
 
-        movieData.results.map(element=>{
+        movieData.results.map((element, index)=>{
              // console.log(element);
              let imagePath = element.poster_path ? `${IMAGE_BASE_URL}${POSTER_SIZE}${element.poster_path}` : 'images/no_image.jpg';
              document.querySelector('.MovieDisplayGrid__container').innerHTML += `
-             <div class="col s6 m3 l3 xl3">
+             <div class="col s6 m3 l3 xl3" key="${index}">
              <div class="card hoverable">
                <div class="card-image">
-                 <img src="${imagePath}">
+                 <img src="${imagePath}" alt="${element.original_title}-poster">
                 <!-- <span class="card-title">${element.original_title}</span> -->
                </div>
                <div class="card-content">
@@ -60,7 +61,7 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
                         (response) => response.json()
                      ))
               );
-               console.log(results)
+             //  console.log(results)
               let genres = results[0].genres.map((ele)=>{
                 return ele.name
               });
@@ -80,8 +81,8 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
                let actorsHtml = actors.slice(0,8).map((ele) => {
                  let imageUrl = ele.picture ? `${IMAGE_BASE_URL}/w300${ele.picture}`: 'images/no_image.jpg';
                  let html = `<div class="col s6 m3 center actor-card" data-id="${ele.actorId}">
-                 <div class="card-panel"><img class="responsive-img hoverable" src="${imageUrl}">
-                 <h6>${ele.name}</h6>
+                 <div class="card-panel"><img class="responsive-img hoverable" src="${imageUrl}" alt="${ele.name}-poster">
+                 <h6 class="truncate">${ele.name}</h6>
                         as
                  <h6 class="truncate">"${ele.character}"</h6>
                  </div></div>`;
@@ -97,7 +98,7 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
               document.querySelector('#movieSection__details .container').innerHTML = `
                   <div class="row">
                     <div class="col m4 s12">
-                        <img class="materialboxed responsive-img" src="${IMAGE_BASE_URL}${BACKDROP_SIZE}${results[0].poster_path}">
+                        <img class="materialboxed responsive-img" src="${IMAGE_BASE_URL}${BACKDROP_SIZE}${results[0].poster_path}" alt="${results[0].original_title}-poster">
                     </div>
                     <div class="col m8 s12">
                         <div style="display: inline-block">
@@ -126,7 +127,7 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
                         ${videoUrl}
                     </div>
                 </div>
-              `
+              `;
                 const elems = document.querySelectorAll('.materialboxed');
                 const instances = M.Materialbox.init(elems);
 
@@ -134,7 +135,7 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
                 const m_instances = M.Modal.init(m_elems);
 
                 document.querySelectorAll('.actor-card').forEach((ele)=>{
-                  // console.log(ele)
+                 //  console.log(ele)
                   ele.addEventListener('click', async(event)=>{
                     // console.log(event)
                     let id = ele.getAttribute("data-id");
@@ -149,10 +150,15 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
                     document.querySelector('.modal-content h6').innerText = `Birthday: ${actorData.birthday} \n Birth place: ${actorData.place_of_birth}`;
                   });
                 });
+
+                document.querySelector('.modal-close').addEventListener('click', ()=>{
+                  m_instances.close();
+                  m_instances.destroy();
+                });
             });
 
         });
-
+        // console.clear();
     };
 
     let timeout = null;
@@ -161,7 +167,7 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
         timeout = setTimeout(() => {
             let searchedItem = document.getElementById('movieSearch').value;
             let endpoint;
-            console.log(searchedItem);
+          //  console.log(searchedItem);
             if(searchedItem === ''){
               endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1&include_adult=true`;
             } else {
@@ -190,7 +196,7 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
       window.location.reload(true);
     });
 
-
+  
     document.querySelector('i.material-icons.left').addEventListener('click', ()=>{
       document.querySelector('#movieSection__details').style.display="none";
       document.querySelector('#movieSection__all').style.display="block";

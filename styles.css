@@ -98,7 +98,7 @@ blockquote{
 }
 
 #movieSection__details .card-panel .responsive-img{
-    max-height: 225px;
+    max-height: 156px;
 }
 
 nav .brand-logo i{
@@ -113,7 +113,6 @@ nav .brand-logo {
 
 i.material-icons.left{
     padding-left: 20px;
-    /* display: none; */
     visibility: hidden;
     cursor: pointer;
 }
@@ -122,7 +121,9 @@ i.material-icons.left{
     max-height: 370px;
 }
 
-
+.actor-card{
+    cursor: pointer;
+}
 
 .dots-after-text {
     overflow: hidden;
@@ -153,6 +154,6 @@ i.material-icons.left{
     @media only screen and (max-width: 600px) {
     .card .card-image img{
         min-height: 213px;
-        max-height: 330px;
+        max-height: 281px;
     }
   }

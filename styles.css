@@ -59,13 +59,13 @@ nav{
 
 .card .card-image img{
     min-height: 213px;
-    max-height: 305px;
+    max-height: 254px;
 }
 
 @media only screen and (max-width: 600px) {
     .card .card-image img{
         min-height: 213px;
-        max-height: 100%;
+        max-height: 278px;
     }
   }
 
@@ -155,9 +155,4 @@ i.material-icons.left{
         background: #FFF;
     } */
 
-    @media only screen and (max-width: 600px) {
-    .card .card-image img{
-        min-height: 213px;
-        max-height: 278px;
-    }
-  }
+ 

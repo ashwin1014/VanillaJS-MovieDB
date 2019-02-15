@@ -22,7 +22,7 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
              // console.log(element);
              let imagePath = element.poster_path ? `${IMAGE_BASE_URL}${POSTER_SIZE}${element.poster_path}` : 'images/no_image.jpg';
              document.querySelector('.MovieDisplayGrid__container').innerHTML += `
-             <div class="col s6 m3 l3 xl3" key="${index}">
+             <div class="col s6 m3 l3 xl3 mov-details" data-reference=${element.id} key="${index}">
              <div class="card hoverable">
                <div class="card-image">
                  <img src="${imagePath}" alt="${element.original_title}-poster">
@@ -61,7 +61,7 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
                         (response) => response.json()
                      ))
               );
-             //  console.log(results)
+           //    console.log(results)
               let genres = results[0].genres.map((ele)=>{
                 return ele.name
               });

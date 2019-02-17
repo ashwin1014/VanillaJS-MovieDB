@@ -12,7 +12,7 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
      window.onbeforeunload = function() { return null; };
 
     const fetchPopularMovieDetails = async (url, isSearched) => {
-        let response = await fetch(url);
+        let response = await fetch(url).catch((err) => { alert('TMDB server down'); console.log(err);});
         let movieData = await response.json();
         // console.log(movieData.results[0]);
         isSearched ? document.querySelector('#MovieDisplayGrid h3').innerText='Search results': document.querySelector('#MovieDisplayGrid h3').innerText='Popular movies'
@@ -53,9 +53,9 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
               event.preventDefault();
               const movieId = event.currentTarget.getAttribute('data-reference');
               let results = await Promise.all([
-                fetch(`${API_URL}movie/${movieId}?api_key=${API_KEY}&include_adult=true`),
-                fetch(`${API_URL}movie/${movieId}/videos?api_key=${API_KEY}&include_adult=true`),
-                fetch(`${API_URL}movie/${movieId}/casts?api_key=${API_KEY}&include_adult=true`)
+                fetch(`${API_URL}movie/${movieId}?api_key=${API_KEY}&include_adult=true`).catch((err) => { console.log(err); }),
+                fetch(`${API_URL}movie/${movieId}/videos?api_key=${API_KEY}&include_adult=true`).catch((err) => { console.log(err); }),
+                fetch(`${API_URL}movie/${movieId}/casts?api_key=${API_KEY}&include_adult=true`).catch((err) => { console.log(err); })
               ].map(url =>
                     url.then(
                         (response) => response.json()
@@ -141,7 +141,7 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from './
                     let id = ele.getAttribute("data-id");
                     // console.log(id)
                     let url =  `${API_URL}person/${id}?api_key=${API_KEY}&language=en-US`;
-                    let response = await fetch(url);
+                    let response = await fetch(url).catch((err) => { console.log(err); });
                     let actorData = await response.json();
                     // console.log(actorData)
                     m_instances.open();

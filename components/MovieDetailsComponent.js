@@ -7,9 +7,11 @@ export default function(genres, actors, videoUrl, results_0) {
       let imageUrl = ele.picture ? `${IMAGE_BASE_URL}/w300${ele.picture}`: 'images/no_image.jpg';
       let html = `<div class="col s6 m3 center actor-card" data-id="${ele.actorId}">
       <div class="card-panel"><img class="responsive-img hoverable" src="${imageUrl}" alt="${ele.name}-poster">
-      <h6 class="truncate">${ele.name}</h6>
-             as
-      <h6 class="truncate">"${ele.character}"</h6>
+      ${
+        ele.character ? `<h6 class="truncate">${ele.name}</h6>
+                            as
+                        <h6 class="truncate">"${ele.character}"</h6>` : `<h6 class="truncate">${ele.name}</h6>`
+       }
       </div></div>`;
       return html;
     });
@@ -29,7 +31,7 @@ export default function(genres, actors, videoUrl, results_0) {
              <div style="display: inline-block">
                <h3>${results_0.original_title}</h3>             
               ${results_0.tagline ? 
-               ` <blockquote>
+               `<blockquote>
                   <i class="material-icons" style="transform: scaleX(-1)">format_quote</i>
                   ${results_0.tagline}
                   <i class="material-icons">format_quote</i>

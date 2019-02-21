@@ -1,7 +1,7 @@
 import { API_URL, API_KEY} from './config.js';
 import moviesDisplayContainer from './components/MovieDisplayGridComponent.js';
 import movieDetails from './components/MovieDetailsComponent.js';
-import actorDetails from './components/ActorDetailsComponent.js'
+import actorDetails from './components/ActorDetailsComponent.js';
 
 
   document.addEventListener('DOMContentLoaded', function () {
@@ -12,7 +12,7 @@ import actorDetails from './components/ActorDetailsComponent.js'
         fetchPopularMovieDetails(endpoint, false);
      };
 
-     window.onbeforeunload = ()=>{null};
+     window.onbeforeunload = ()=>{ return null; };
 
     const fetchPopularMovieDetails = async (url, isSearched) => {
         let response = await fetch(url).catch((err) => { alert('TMDB server down'); console.log(err);});
@@ -41,7 +41,7 @@ import actorDetails from './components/ActorDetailsComponent.js'
               );
            //    console.log(results)
               let genres = results[0].genres.map((ele)=>{
-                return ele.name
+                return ele.name;
               });
 
               let actors = results[2].cast.map(ele => {

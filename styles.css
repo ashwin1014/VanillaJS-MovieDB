@@ -119,6 +119,7 @@ i.material-icons.left{
 
 #movieSection__details .card-panel{
     max-height: 370px;
+    min-height: 320px;
 }
 
 .MovieDisplayGrid__container .card-content{

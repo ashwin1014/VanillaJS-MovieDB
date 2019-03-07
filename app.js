@@ -6,7 +6,6 @@ import actorDetails from './components/ActorDetailsComponent.js';
 
   document.addEventListener('DOMContentLoaded', function () {
      "use strict";
-
      window.onload = ()=> {
         const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1&include_adult=true`;
         fetchPopularMovieDetails(endpoint, false);
@@ -18,12 +17,12 @@ import actorDetails from './components/ActorDetailsComponent.js';
         let response = await fetch(url).catch((err) => { alert('TMDB server down'); console.log(err);});
         let movieData = await response.json();
         // console.log(movieData.results[0]);
-        isSearched ? document.querySelector('#MovieDisplayGrid h3').innerText='Search results': document.querySelector('#MovieDisplayGrid h3').innerText='Popular movies'
+        isSearched ? document.querySelector('#MovieDisplayGrid h3').innerText='Search results': document.querySelector('#MovieDisplayGrid h3').innerText='Popular movies';
         if(isSearched) document.querySelector('.MovieDisplayGrid__container').innerHTML = '';
 
         // Populate Movies
         moviesDisplayContainer(movieData);
-
+        if(document.querySelector('#movieSearch').value === "") document.querySelector('#MovieDisplayGrid h3').innerText='Popular movies';
        const movieRefernce = document.querySelectorAll('.mov-details');
         movieRefernce.forEach((ele)=>{
            ele.addEventListener('click', async(event)=>{
@@ -39,7 +38,7 @@ import actorDetails from './components/ActorDetailsComponent.js';
                         (response) => response.json()
                      ))
               );
-           //    console.log(results)
+              //  console.log(results)
               let genres = results[0].genres.map((ele)=>{
                 return ele.name;
               });
@@ -77,23 +76,12 @@ import actorDetails from './components/ActorDetailsComponent.js';
             } else {
               endpoint = `${API_URL}search/movie?api_key=${API_KEY}&language=en-US&query=${searchedItem}&page=1&include_adult=true`;
             }
+            document.querySelector('.MovieDisplayGrid__container').innerHTML = '';
+            document.querySelector('#MovieDisplayGrid').lastElementChild.lastElementChild.previousElementSibling.value = 1;
            fetchPopularMovieDetails(endpoint, true);
         }, 600);
     });
 
-    let count = 1;
-    document.getElementById('loadMoreBtn').addEventListener('click', ()=> {
-
-      let searchedItem = document.getElementById('movieSearch').value;
-      let endpoint;
-
-      if(searchedItem === ''){
-        endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${++count}&include_adult=true`;
-      } else{
-        endpoint = `${API_URL}search/movie?api_key=${API_KEY}&language=en-US&query=${searchedItem}&page=${++count}&include_adult=true`;
-      }
-        fetchPopularMovieDetails(endpoint, false);
-    });
 
     document.querySelector('.brand-logo').addEventListener('click', ()=>{
       window.location.reload(true);
@@ -106,5 +94,50 @@ import actorDetails from './components/ActorDetailsComponent.js';
       document.querySelector('i.material-icons.left').style.visibility="hidden";
       document.documentElement.scrollTop = 0;
     });
+
+    
+    
+    document.querySelector('#MovieDisplayGrid').lastElementChild.lastElementChild.addEventListener('click', async()=> {
+      let count = document.querySelector('#MovieDisplayGrid__container__page').value;
+      count = parseInt(count, 10);
+      count = count + 1;
+      document.querySelector('#MovieDisplayGrid').lastElementChild.lastElementChild.previousElementSibling.value = count;
+      pageNavigator(count);
+    });
+
+
+    document.querySelector('#MovieDisplayGrid').lastElementChild.firstElementChild.addEventListener('click', async()=> {
+      let count = document.querySelector('#MovieDisplayGrid__container__page').value;
+      count = parseInt(count, 10);
+      count = count - 1;
+      if(count < 1) count = 1;
+      document.querySelector('#MovieDisplayGrid').lastElementChild.lastElementChild.previousElementSibling.value = count;
+      if(!count < 1) pageNavigator(count);
+    });
+
+
+    document.querySelector('#MovieDisplayGrid__container__page').addEventListener('keypress', (e)=> {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        let page = document.querySelector('#MovieDisplayGrid__container__page').value;
+        pageNavigator(page);
+      }, 500);
+    });
+
+
+    let pageNavigator = (page) => {
+      let searchedItem = document.getElementById('movieSearch').value;
+      let endpoint;
+ 
+      if(searchedItem === ''){
+        endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${page}&include_adult=true`;
+      } else{        
+        endpoint = `${API_URL}search/movie?api_key=${API_KEY}&language=en-US&query=${searchedItem}&page=${page}&include_adult=true`;
+      }
+        fetchPopularMovieDetails(endpoint, false);        
+        document.querySelector('.MovieDisplayGrid__container').innerHTML = '';
+        document.documentElement.scrollTop = 0;
+    };
+
 
   });

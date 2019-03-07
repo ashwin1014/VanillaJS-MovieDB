@@ -48,7 +48,7 @@ export default function(genres, actors, videoUrl, results_0) {
          </div>
      </div>
      <div class="row">
-         <h4>Top Cast</h4>
+         <h4>Top Billed Cast</h4>
          ${actorsHtml.join('')}
      </div>
      <div class="row">

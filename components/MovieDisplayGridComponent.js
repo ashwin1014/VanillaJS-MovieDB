@@ -1,6 +1,8 @@
 import { IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from '../config.js';
 
 export default function(movieData) {
+          
+  if(movieData.results.length===0) document.querySelector('#MovieDisplayGrid h3').innerText='No results found'
             movieData.results.map((element, index)=>{
              // console.log(element);
              let imagePath = element.poster_path ? `${IMAGE_BASE_URL}${POSTER_SIZE}${element.poster_path}` : '../images/no_image.jp';

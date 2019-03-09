@@ -12,6 +12,13 @@ import actorDetails from './components/ActorDetailsComponent.js';
      };
 
      window.onbeforeunload = ()=>{ return null; };
+     
+     window.addEventListener('keydown',function(e){
+       if(e.keyIdentifier=='U+000A'||e.keyIdentifier=='Enter'||e.keyCode==13){
+         if(e.target.nodeName=='INPUT'&&e.target.type=='text'){
+           e.preventDefault();return false;
+      }}},true);
+
 
     const fetchPopularMovieDetails = async (url, isSearched) => {
         let response = await fetch(url).catch((err) => { alert('TMDB might be blocked by your ISP. You may try using a VPN'); console.log(err);});
@@ -65,7 +72,7 @@ import actorDetails from './components/ActorDetailsComponent.js';
     };
 
     let timeout = null;
-    document.getElementById('movieSearch').addEventListener('keydown', ()=>{
+    document.getElementById('movieSearch').addEventListener('keydown', ()=>{        
         document.querySelector('#searchBar .btn-floating').style.visibility = 'visible';
         clearTimeout(timeout);
         timeout = setTimeout(() => {
@@ -83,6 +90,8 @@ import actorDetails from './components/ActorDetailsComponent.js';
            fetchPopularMovieDetails(endpoint, true);
         }, 600);
     });
+
+ 
 
 
     document.querySelector('.brand-logo').addEventListener('click', ()=>{

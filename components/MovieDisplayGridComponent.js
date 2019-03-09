@@ -1,7 +1,7 @@
 import { IMAGE_BASE_URL, BACKDROP_SIZE, POSTER_SIZE } from '../config.js';
 
 export default function(movieData) {
-   console.log(movieData.results[0])       
+  //  console.log(movieData.results[0])       
   if(movieData.results.length===0) document.querySelector('#MovieDisplayGrid h3').innerText='No results found'
             movieData.results.map((element, index)=>{
              // console.log(element);
@@ -24,7 +24,7 @@ export default function(movieData) {
           });
         // Banner image
         let randomMovie = movieData.results[Math.floor(Math.random() * 5)];
-        if (typeof(randomMovie) === 'undefined') randomMovie = movieData.results[0];
+        if (randomMovie === undefined) randomMovie = movieData.results[0];
         document.querySelector('.HeroImage__image').style.background =`linear-gradient(to bottom, rgba(0,0,0,0)
         39%, rgba(0,0,0,0)
         41%, rgba(0,0,0,0.65)

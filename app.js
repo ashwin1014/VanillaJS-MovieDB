@@ -14,7 +14,7 @@ import actorDetails from './components/ActorDetailsComponent.js';
      window.onbeforeunload = ()=>{ return null; };
 
     const fetchPopularMovieDetails = async (url, isSearched) => {
-        let response = await fetch(url).catch((err) => { alert('TMDB server down'); console.log(err);});
+        let response = await fetch(url).catch((err) => { alert('TMDB might be blocked by your ISP. You may try using a VPN'); console.log(err);});
         let movieData = await response.json();
         // console.log(movieData.results[0]);
         isSearched ? document.querySelector('#MovieDisplayGrid h3').innerText='Search results': document.querySelector('#MovieDisplayGrid h3').innerText='Popular movies';
@@ -38,7 +38,7 @@ import actorDetails from './components/ActorDetailsComponent.js';
                         (response) => response.json()
                      ))
               );
-              //  console.log(results)
+                //  console.log(results)
               let genres = results[0].genres.map((ele)=>{
                 return ele.name;
               });
@@ -54,7 +54,7 @@ import actorDetails from './components/ActorDetailsComponent.js';
 
                // console.log(actors)
 
-               let videoUrl = results[1].results[0] ? `<iframe  src="https://www.youtube.com/embed/${results[1].results[0].key}" frameborder="0" allowfullscreen></iframe>`:'<p class="flow-text">No video available</p>'
+               let videoUrl = results[1];
 
                movieDetails(genres, actors, videoUrl, results[0]);
 
@@ -66,6 +66,7 @@ import actorDetails from './components/ActorDetailsComponent.js';
 
     let timeout = null;
     document.getElementById('movieSearch').addEventListener('keydown', ()=>{
+        document.querySelector('#searchBar .btn-floating').style.visibility = 'visible';
         clearTimeout(timeout);
         timeout = setTimeout(() => {
             let searchedItem = document.getElementById('movieSearch').value;
@@ -122,6 +123,14 @@ import actorDetails from './components/ActorDetailsComponent.js';
         let page = document.querySelector('#MovieDisplayGrid__container__page').value;
         pageNavigator(page);
       }, 500);
+    });
+
+    document.querySelector('#searchBar .btn-floating').addEventListener('click', ()=> {
+        document.querySelector('.MovieDisplayGrid__container').innerHTML = '';
+        const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1&include_adult=true`;
+        fetchPopularMovieDetails(endpoint, false);
+        document.querySelector('#searchBar .btn-floating').style.visibility = 'hidden';
+        document.documentElement.scrollTop = 0;
     });
 
 

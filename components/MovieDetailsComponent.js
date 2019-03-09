@@ -1,6 +1,17 @@
 import { IMAGE_BASE_URL, BACKDROP_SIZE } from '../config.js';
 
-export default function(genres, actors, videoUrl, results_0) {
+export default function(genres, actors, videoKey, results_0) {
+
+  let videoUrl = videoKey.results[0] ? `<iframe  src="https://www.youtube.com/embed/${videoKey.results[0].key}" frameborder="0" allowfullscreen></iframe>`:'<p class="flow-text">No video available</p>'
+  // console.log(videoUrl)
+
+  // let videoCarousel = ''
+  // videoKey.results.map((ele)=> {
+  //  // console.log(ele.key)
+  //  videoCarousel += `<a class="carousel-item" ><iframe  src="https://www.youtube.com/embed/${ele.key}" frameborder="0" allowfullscreen></iframe></a>`;
+  // })
+
+  // console.log(videoCarousel)
 
     let actorsHtml = actors.slice(0,8).map((ele) => {
      // console.log(ele)
@@ -35,10 +46,10 @@ export default function(genres, actors, videoUrl, results_0) {
                   <i class="material-icons" style="transform: scaleX(-1)">format_quote</i>
                   ${results_0.tagline}
                   <i class="material-icons">format_quote</i>
-                </blockquote>` : null              
+                </blockquote>` : ''              
               }
                <h6><b>Runtime:</b> ${results_0.runtime} minutes</h6>
-               <h6><b>Genres:</b> ${genres}</h6>
+               <h6><b>Genres:</b> ${!results_0.adult ? genres:'Adult'}</h6>
                <h6><b>Release date:</b> ${results_0.release_date}</h6>
                <h6><b>Home page:</b><a href="${results_0.homepage}">&nbsp;Visit homepage</a></h6>
              </div>
@@ -53,10 +64,12 @@ export default function(genres, actors, videoUrl, results_0) {
      </div>
      <div class="row">
          <div class="video-container">
-             ${videoUrl}
-         </div>
+         ${videoUrl}
+         </div> 
      </div>`;
-
-     const elems = document.querySelectorAll('.materialboxed');
-     M.Materialbox.init(elems);
+    
+    M.AutoInit();
+  
+    //  const elems = document.querySelectorAll('.materialboxed');
+    //  M.Materialbox.init(elems);
 }

@@ -74,6 +74,7 @@ import actorDetails from './components/ActorDetailsComponent.js';
           //  console.log(searchedItem);
             if(searchedItem === ''){
               endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1&include_adult=true`;
+              document.querySelector('#searchBar .btn-floating').style.visibility = 'hidden';
             } else {
               endpoint = `${API_URL}search/movie?api_key=${API_KEY}&language=en-US&query=${searchedItem}&page=1&include_adult=true`;
             }

@@ -123,7 +123,7 @@ import actorDetails from './components/ActorDetailsComponent.js';
       count = count - 1;
       if(count < 1) count = 1;
       document.querySelector('#MovieDisplayGrid').lastElementChild.lastElementChild.previousElementSibling.value = count;
-      if(!count < 1) pageNavigator(count);
+      if(count > 1) pageNavigator(count);
     });
 
 

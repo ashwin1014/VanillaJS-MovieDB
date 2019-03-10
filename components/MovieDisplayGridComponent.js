@@ -23,7 +23,7 @@ export default function(movieData) {
             </div>`;
           });
         // Banner image
-        let randomMovie = movieData.results[Math.floor(Math.random() * 5)];
+        let randomMovie = movieData.results[Math.floor(Math.random() * 10)];
         if (randomMovie === undefined) randomMovie = movieData.results[0];
         document.querySelector('.HeroImage__image').style.background =`linear-gradient(to bottom, rgba(0,0,0,0)
         39%, rgba(0,0,0,0)

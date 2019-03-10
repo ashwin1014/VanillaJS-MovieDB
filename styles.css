@@ -20,14 +20,18 @@ nav{
 
 #HeroImage{
     margin-top: 0;
+    height: 500px;
 }
 
 .HeroImage__image{
-    background-position: center center !important;
+    /* background-position: center center !important; */
     background-repeat: no-repeat !important;
     background-size: 100%, cover !important;
     position: relative;
     animation: animateHeroimage 1s;
+    width: 100%;
+    height: 100%;
+    margin: auto;
 }
 
 @keyframes animateHeroimage {
@@ -39,9 +43,6 @@ nav{
     }
   }
 
-.HeroImage__image{
-    height: 500px;
-}
 
 .HeroImage__description{
     color: var(--white);
@@ -67,6 +68,11 @@ nav{
         min-height: 213px;
         max-height: 278px;
     }
+    
+    .HeroImage__image{
+        background-position: center center !important;
+    }
+
   }
 
 .card{
@@ -160,7 +166,7 @@ i.material-icons.left{
 
     #searchBar .btn-floating{
         float: right;
-        top: -55px;
+        top: -44px;
         width: 25px;
         height: 25px;
         line-height: 39px;

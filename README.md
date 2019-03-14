@@ -5,3 +5,6 @@ For Demo Visit: https://vjsmoviedb.netlify.com/ <br>
 
 
 [![DeepScan grade](https://deepscan.io/api/teams/2908/projects/4348/branches/35352/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=2908&pid=4348&bid=35352)
+
+<br/> <br/>
+**Please Note** some ISPs have blocked the TMDB Server. Use can use a VPN extension such as hola or touch vpn to give it a try 
